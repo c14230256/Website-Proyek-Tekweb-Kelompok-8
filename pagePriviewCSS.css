@@ -1,0 +1,39 @@
+.navbar {
+    background-color: #FFCC33; 
+}
+
+.navbar-brand, .nav-link, .dropdown-item {
+    color: #3333FF !important; 
+}
+
+.navbar-toggler-icon {
+    background-color: #FF5733; 
+}
+
+.dropdown-menu {
+    background-color: #FFF7CC; 
+}
+
+.btn {
+    background-color: #3333FF;
+    color: white;
+}
+
+.btn:hover {
+    background-color: #1F3E96;
+}
+
+.hall-content {
+    background-color: #FFF7CC; 
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.footer {
+    background-color: #FF5733;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    margin-top: 40px;
+}
