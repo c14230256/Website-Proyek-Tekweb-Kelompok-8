@@ -1,5 +1,26 @@
 .navbar {
-    background-color: #FFCC33; 
+    background-color: #FFCC33;
+    list-style-type: none;
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar li {
+    float: left;
+
+}
+
+.navbar li a{
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.navbar li a:hover {
+    background-color: #FF8C00;
 }
 
 .navbar-brand, .nav-link, .dropdown-item {
