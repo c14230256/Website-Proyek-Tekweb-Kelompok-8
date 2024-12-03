@@ -1,54 +1,68 @@
+/* Define your custom font */
+@font-face {
+    font-family: 'SpongeBob';
+    src: url('C:\Users\Joey\Website-Proyek-Tekweb-Kelompok-8\font\Krabby Patty.ttf') format('truetype');
+}
+
+/* Apply the custom font */
+body {
+    font-family: 'SpongeBob';
+}
+
+.navbar-brand img { 
+    margin-left: 40px;
+}
+
+.krusty-logo {
+    margin-left: 50px;
+    width: 160px;
+    height: auto;
+   
+}
+
+
 .navbar {
     background-color: #FFCC33;
-    list-style-type: none;
-    overflow: hidden;
     padding: 0;
     margin: 0;
 }
 
-.navbar li {
-    float: left;
-
+.navbar .navbar-brand,
+.navbar-nav {
+    display: flex;
+    align-items: center;
 }
 
-.navbar li a{
-    display: block;
-    color: white;
-    text-align: center;
+.navbar-nav {
+    display: flex;
+    align-items:center;
+    margin-left: 160px;
+}
+
+.nav-item {
+    margin-left: 20px;
+}
+
+.nav-link {
+    color: #000000;
     padding: 14px 16px;
     text-decoration: none;
+    text-align: center;
+    font-family: 'SpongeBob';
+    font-size: 18px;
 }
 
-.navbar li a:hover {
+.nav-link:hover {
     background-color: #FF8C00;
-}
-
-.navbar-brand, .nav-link, .dropdown-item {
-    color: #3333FF !important; 
-}
-
-.navbar-toggler-icon {
-    background-color: #FF5733; 
-}
-
-.dropdown-menu {
-    background-color: #FFF7CC; 
-}
-
-.btn {
-    background-color: #3333FF;
     color: white;
 }
 
-.btn:hover {
-    background-color: #1F3E96;
-}
-
-.hall-content {
-    background-color: #FFF7CC; 
-    padding: 30px;
-    border-radius: 10px;
-    text-align: center;
+.header-top-1 {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #FFCC33;
+    font-family: 'SpongeBob';
 }
 
 .footer {
@@ -57,4 +71,61 @@
     padding: 20px;
     text-align: center;
     margin-top: 40px;
+    font-family: 'SpongeBob';
+}
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.container-1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container-1-slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin: auto;
+}
+  
+.container-1-slides {
+    display: flex;
+    position: relative;
+    transition: transform 0.5s ease-in-out;
+}
+
+.container-1-slides img {
+    width: 100%;
+    height: auto;
+    max-height: 600px;
+    max-width: 400px;
+}
+  
+.container-1-slide {
+    min-width: 100%;
+    transition: transform 0.5s ease-in-out;
+}
+
+#container-1-left-arrow {
+    left: 40px;
+}
+
+#container-1-right-arrow {
+    right: 40px;
+}
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+.material-symbols-outlined-fill {
+    font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
+    font-size: 2.2em;
+    color: #d4a10b;
+}
+.container-1-content-title{
+    font-size: 3em;
 }
