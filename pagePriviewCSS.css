@@ -85,6 +85,17 @@ body {
     align-items: center;
 }
 
+.container-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-container {
+    display: flex;
+    transition: transform 0.5s ease-out;
+}
+
 .container-1-slider {
     position: relative;
     width: 100%;
