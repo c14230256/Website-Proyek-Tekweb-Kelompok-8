@@ -67,7 +67,7 @@ body {
 .footer {
     background-color: #FF5733;
     color: white;
-    padding: 20px;
+    padding: 50px;
     text-align: center;
     margin-top: 40px;
     font-family: 'SpongeBob', sans-serif;
@@ -83,6 +83,9 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #ffffff;
+    margin-bottom: 40px;
+    
 }
 
 .container-2 {
@@ -143,3 +146,85 @@ body {
     font-size: 3em;
 }
 
+.container-1-content-description{
+    font-size: 18px;
+    justify-content: space-between;
+    align-items: center;
+}
+.container-2-content-subtitle{
+    font-size: 2em;
+}
+.container-2-description {
+    font-size: 18px;
+}
+#container-2-left-arrow {
+    left: 10px;
+}
+
+#container-2-right-arrow {
+    right: 10px;
+}
+.container-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #e5e986;
+}
+.container-2-slider {
+    position: relative;
+    max-width: 80%;
+    overflow: hidden;
+    margin: auto;
+}
+  
+.container-2-slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.container-2-slides img {
+    height: 400px;
+    width: 200px;
+}
+  
+.container-2-slide {
+    min-width: 100%;
+    transition: transform 0.5s ease-in-out;
+}
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
+}
+.container-3-slide {
+    min-width: 100%;
+    transition: transform 0.5s ease-in-out;
+}
+.container-3-slider {
+    position: relative;
+    overflow: hidden;
+    margin: auto;
+}
+  
+.container-3-slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.container-3-slides img {
+    width: 100%;
+}
+.container-3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#container-3-left-arrow {
+    left: 40px;
+}
+
+#container-3-right-arrow {
+    right: 40px;
+}
+
+.container-3-content {
+    max-width: 50%;
+}
