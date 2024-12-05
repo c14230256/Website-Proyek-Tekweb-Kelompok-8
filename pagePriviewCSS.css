@@ -1,12 +1,12 @@
 /* Define your custom font */
 @font-face {
     font-family: 'SpongeBob';
-    src: url('C:\Users\Joey\Website-Proyek-Tekweb-Kelompok-8\font\Krabby Patty.ttf') format('truetype');
+    src: url('font/Krabby Patty.ttf') format('truetype');
 }
 
 /* Apply the custom font */
 body {
-    font-family: 'SpongeBob';
+    font-family: 'SpongeBob', sans-serif;
 }
 
 .navbar-brand img { 
@@ -17,9 +17,7 @@ body {
     margin-left: 50px;
     width: 160px;
     height: auto;
-   
 }
-
 
 .navbar {
     background-color: #FFCC33;
@@ -48,7 +46,7 @@ body {
     padding: 14px 16px;
     text-decoration: none;
     text-align: center;
-    font-family: 'SpongeBob';
+    font-family: 'SpongeBob', sans-serif;
     font-size: 18px;
 }
 
@@ -62,7 +60,7 @@ body {
     justify-content: space-between;
     padding: 10px 20px;
     background-color: #FFCC33;
-    font-family: 'SpongeBob';
+    font-family: 'SpongeBob', sans-serif;
 }
 
 .footer {
@@ -71,8 +69,9 @@ body {
     padding: 20px;
     text-align: center;
     margin-top: 40px;
-    font-family: 'SpongeBob';
+    font-family: 'SpongeBob', sans-serif;
 }
+
 .content {
     display: flex;
     flex-direction: column;
@@ -101,7 +100,7 @@ body {
 .container-1-slides img {
     width: 100%;
     height: auto;
-    max-height: 600px;
+    max-height: 800px;
     max-width: 400px;
 }
   
@@ -117,6 +116,7 @@ body {
 #container-1-right-arrow {
     right: 40px;
 }
+
 .material-symbols-outlined {
     font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
 }
@@ -126,6 +126,8 @@ body {
     font-size: 2.2em;
     color: #d4a10b;
 }
-.container-1-content-title{
+
+.container-1-content-title {
     font-size: 3em;
 }
+
