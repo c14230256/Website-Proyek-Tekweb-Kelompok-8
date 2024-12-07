@@ -23,6 +23,10 @@ body {
     background-color: #FFCC33;
     padding: 0;
     margin: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure it stays on top of other content */
 }
 
 .navbar .navbar-brand,
@@ -71,6 +75,7 @@ body {
     text-align: center;
     margin-top: 40px;
     font-family: 'SpongeBob', sans-serif;
+    width: 100%
 }
 
 .content {
