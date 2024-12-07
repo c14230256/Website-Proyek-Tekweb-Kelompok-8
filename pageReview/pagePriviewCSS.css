@@ -83,8 +83,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #ffffff;
-    margin-bottom: 40px;
+    background-color: antiquewhite;
+    margin-bottom: 60px;
     
 }
 
@@ -147,7 +147,7 @@ body {
 }
 
 .container-1-content-description{
-    font-size: 18px;
+    font-size: 25px;
     justify-content: space-between;
     align-items: center;
 }
@@ -229,7 +229,8 @@ body {
     max-width: 50%;
 }
 #tourist-spot-name {
-    font-size: 1.5em;
+    font-size: 2em;
+    text-align: center;
 }
 
 #tourist-spot-description {
@@ -237,4 +238,13 @@ body {
     text-align: justify;
     text-justify: inter-word;
     margin: 40px;
+}
+
+.main-content{
+    background-color: antiquewhite;
+}
+
+.container-2-title{
+    font-size: 3em;
+    text-align: center;
 }
