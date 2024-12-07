@@ -57,7 +57,7 @@
       </div>
       <div class="main-content d-flex justify-content-center align-items-center" id="background">
         <div class="card p-4 shadow-lg" style="width: 30rem; border-radius: 10px;">
-          <form method="POST" action="addUser.php" class="needs-validation" novalidate>
+          <form method="POST" class="needs-validation" id="registerForm" novalidate>
             <div class="mb-3 row">
               <div class="mb-3 row">
                 <label for="fullname" class="col-sm-3 col-form-label text-end"
@@ -102,14 +102,18 @@
                   </div>
               </div>
               <div class="text-center">
-                <button type="submit" class="btn btn-primary w-100">Register</button>
+                <button id="submit" type="submit" class="btn btn-primary w-100">Register</button>
               </div>
           </form>
+        </div>
+        <div id="responseMessage" style="margin-top: 40px;">
+          
         </div>
       </div>
       <div class="footer">
         <p>&copy; Krusty Tower. All rights reserved to Mr.Krabs and Nickelodeon.</p>
       </div>
     </div>
+    <script src="ajaxAddUser.js"></script>
   </body>
 </html>
