@@ -19,10 +19,15 @@ body {
     height: auto;
 }
 
+/* Make the navbar fixed */
 .navbar {
     background-color: #FFCC33;
     padding: 0;
     margin: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure it stays on top of other content */
 }
 
 .navbar .navbar-brand,
@@ -33,7 +38,7 @@ body {
 
 .navbar-nav {
     display: flex;
-    align-items:center;
+    align-items: center;
     margin-left: 160px;
 }
 
@@ -64,19 +69,12 @@ body {
     font-family: 'SpongeBob', sans-serif;
 }
 
-.footer {
-    background-color: #FF5733;
-    color: white;
-    padding: 50px;
-    text-align: center;
-    margin-top: 40px;
-    font-family: 'SpongeBob', sans-serif;
-}
-
+/* Add padding to top of content to offset the fixed navbar */
 .content {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding-top: 80px; /* Adjust based on the height of your navbar */
 }
 
 .container-1 {
@@ -85,7 +83,6 @@ body {
     align-items: center;
     background-color: antiquewhite;
     margin-bottom: 60px;
-    
 }
 
 .container-2 {
@@ -105,7 +102,7 @@ body {
     overflow: hidden;
     margin: auto;
 }
-  
+
 .container-1-slides {
     display: flex;
     position: relative;
@@ -118,7 +115,7 @@ body {
     max-height: 800px;
     max-width: 400px;
 }
-  
+
 .container-1-slide {
     min-width: 100%;
     transition: transform 0.5s ease-in-out;
@@ -146,17 +143,20 @@ body {
     font-size: 3em;
 }
 
-.container-1-content-description{
+.container-1-content-description {
     font-size: 25px;
     justify-content: space-between;
     align-items: center;
 }
-.container-2-content-subtitle{
+
+.container-2-content-subtitle {
     font-size: 2em;
 }
+
 .container-2-description {
     font-size: 18px;
 }
+
 #container-2-left-arrow {
     left: 10px;
 }
@@ -164,19 +164,21 @@ body {
 #container-2-right-arrow {
     right: 10px;
 }
+
 .container-2 {
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #e5e986;
 }
+
 .container-2-slider {
     position: relative;
     max-width: 80%;
     overflow: hidden;
     margin: auto;
 }
-  
+
 .container-2-slides {
     display: flex;
     transition: transform 0.5s ease-in-out;
@@ -186,24 +188,27 @@ body {
     height: 400px;
     width: 200px;
 }
-  
+
 .container-2-slide {
     min-width: 100%;
     transition: transform 0.5s ease-in-out;
 }
+
 .fade-in {
     animation: fadeIn 1s ease-in-out;
 }
+
 .container-3-slide {
     min-width: 100%;
     transition: transform 0.5s ease-in-out;
 }
+
 .container-3-slider {
     position: relative;
     overflow: hidden;
     margin: auto;
 }
-  
+
 .container-3-slides {
     display: flex;
     transition: transform 0.5s ease-in-out;
@@ -212,11 +217,13 @@ body {
 .container-3-slides img {
     width: 100%;
 }
+
 .container-3 {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 #container-3-left-arrow {
     left: 40px;
 }
@@ -228,6 +235,7 @@ body {
 .container-3-content {
     max-width: 50%;
 }
+
 #tourist-spot-name {
     font-size: 2em;
     text-align: center;
@@ -240,11 +248,20 @@ body {
     margin: 40px;
 }
 
-.main-content{
+.main-content {
     background-color: antiquewhite;
 }
 
-.container-2-title{
+.container-2-title {
     font-size: 3em;
     text-align: center;
+}
+
+.footer {
+    background-color: #FF5733;
+    color: white;
+    padding: 50px;
+    text-align: center;
+    margin-top: 40px;
+    font-family: 'SpongeBob', sans-serif;
 }
