@@ -13,8 +13,8 @@ SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@OLD_COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
 
 --
@@ -48,7 +48,8 @@ CREATE TABLE `room` (
   `room_type` varchar(1000) NOT NULL,
   `description` varchar(1000) NOT NULL,
   `price` decimal(10,0) NOT NULL,
-  `room_status` int(11) NOT NULL
+  `room_status` int(11) NOT NULL,
+  `image_url` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -156,6 +157,44 @@ ALTER TABLE `reservation`
 --
 ALTER TABLE `transaction`
   ADD CONSTRAINT `reservation_id_foreign_key` FOREIGN KEY (`reservation_id`) REFERENCES `reservation` (`reservation_id`);
+
+--
+-- Inserting Data into `room`
+--
+INSERT INTO `room` (`room_type`, `description`, `price`, `room_status`, `image_url`) VALUES
+  ('Normal Room', 'A simple but comfy room!', 350, 1, '../Image/normalRoom.jpg'),
+  ('Funk Room', 'A funky yet comfortable room with more amenities than normal.', 450, 1, '../Image/funkRoom.jpg'),
+  ('Lumberjack Room', 'Feel the wilderness surrounding you.', 550, 1, '../Image/lumberJackRoom.jpg'),
+  ('Royal Room', 'The most expensive and the luxurious room. Feel the fanciness of a 5-star hotel.', 999, 1, '../Image/RoyalRoom.jpg');
+
+--
+-- Inserting Data into `user`
+--
+INSERT INTO `user` (`name_user`, `user_email`, `pass_user`, `salt`, `role`) VALUES
+('SpongeBob SquarePants', 'spongebob@bikinibottom.com', 'hashedpassword1', 'salt1', 1),
+('Patrick Star', 'patrick@bikinibottom.com', 'hashedpassword2', 'salt2', 0),
+('Squidward Tentacles', 'squidward@bikinibottom.com', 'hashedpassword3', 'salt3', 1),
+('Sandy Cheeks', 'sandy@bikinibottom.com', 'hashedpassword4', 'salt4', 0),
+('Eugene Krabs', 'mrkrabs@bikinibottom.com', 'hashedpassword5', 'salt5', 1);
+
+--
+-- Inserting Data into `reservation`
+--
+INSERT INTO `reservation` (`user_id`, `room_id`, `check_in`, `check_out`, `reservation_status`, `reservation_date`) VALUES
+(1, 1, '2024-12-01 14:00:00', '2024-12-02 12:00:00', 1, '2024-12-01 12:00:00'),
+(2, 2, '2024-12-02 14:00:00', '2024-12-03 12:00:00', 1, '2024-12-02 12:00:00'),
+(3, 3, '2024-12-03 14:00:00', '2024-12-04 12:00:00', 0, '2024-12-03 12:00:00'),
+(4, 4, '2024-12-04 14:00:00', '2024-12-05 12:00:00', 1, '2024-12-04 12:00:00');
+
+--
+-- Inserting Data into `transaction`
+--
+INSERT INTO `transaction` (`reservation_id`, `cost`, `transaction_status`, `payment_date`) VALUES
+(1, 350, 1, '2024-12-01 14:30:00'),
+(2, 450, 1, '2024-12-02 14:30:00'),
+(3, 550, 0, '2024-12-03 14:30:00'),
+(4, 999, 1, '2024-12-04 14:30:00');
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
