@@ -47,7 +47,7 @@
                         </tr>
                     </thead>
                     <tbody id="roomTableBody">
-                        <!-- Data will be loaded here by JavaScript -->
+                        <?php include 'fetch_rooms.php'; ?>
                     </tbody>
                 </table>
             </div>
@@ -55,8 +55,11 @@
     </div>
 
     <!-- JavaScript -->
-    <script src="manageRooms.js"></script>
+    <script src="deleteRoom.js"></script>
 </body>
 </html>
+
+
+
 
 

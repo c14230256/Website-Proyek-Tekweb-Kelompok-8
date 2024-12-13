@@ -14,7 +14,7 @@ $sql = "SELECT * FROM room";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
-    while($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) {
         echo "<tr>";
         echo "<td>" . $row["room_id"] . "</td>";
         echo "<td>" . $row["room_type"] . "</td>";
@@ -30,3 +30,4 @@ if ($result->num_rows > 0) {
 
 $conn->close();
 ?>
+

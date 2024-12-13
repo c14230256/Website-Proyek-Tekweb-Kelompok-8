@@ -11,12 +11,6 @@ SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@OLD_COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 --
 -- Database: `proyek_tekweb`
 --
@@ -26,6 +20,9 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `reservation`
 --
+
+CREATE DATABASE IF NOT EXISTS proyek_tekweb;
+USE proyek_tekweb;
 
 CREATE TABLE `reservation` (
   `reservation_id` int(255) NOT NULL,
@@ -197,6 +194,3 @@ INSERT INTO `transaction` (`reservation_id`, `cost`, `transaction_status`, `paym
 
 COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
