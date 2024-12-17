@@ -1,0 +1,278 @@
+/* Define your custom font */
+@font-face {
+    font-family: 'SpongeBob';
+    src: url('../font/Krabby Patty.ttf') format('truetype');
+}
+
+/* Apply the custom font */
+body {
+    font-family: 'SpongeBob', sans-serif;
+}
+
+.navbar-brand img { 
+    margin-left: 40px;
+}
+
+.krusty-logo {
+    margin-left: 50px;
+    width: 160px;
+    height: auto;
+}
+
+/* Make the navbar fixed */
+.navbar {
+    background-color: #FFCC33;
+    padding: 0;
+    margin: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; /* Ensure it stays on top of other content */
+}
+
+.navbar .navbar-brand,
+.navbar-nav {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    margin-left: 160px;
+}
+
+.nav-item {
+    margin-left: 20px;
+}
+
+.nav-link {
+    color: #000000;
+    padding: 14px 16px;
+    text-decoration: none;
+    text-align: center;
+    font-family: 'SpongeBob', sans-serif;
+    font-size: 18px;
+    border-radius: 40px;
+}
+
+.nav-link:hover {
+    background-color: #FF8C00;
+    color: white;
+}
+
+.header-top-1 {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #FFCC33;
+    font-family: 'SpongeBob', sans-serif;
+    top: 0;
+}
+
+/* Add padding to top of content to offset the fixed navbar */
+.content {
+    display: flex;
+    flex-direction: column;
+    padding-top: 120px; /* Adjust this value to match the height of your navbar */
+}
+
+
+.footer {
+    background-color: #FF5733;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    margin-top: 40px;
+    font-family: 'SpongeBob', sans-serif;
+    width: 100%;
+}
+
+.container-1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-container {
+    display: flex;
+    transition: transform 0.5s ease-out;
+}
+
+.container-1-slider {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin: auto;
+}
+
+.container-1-slides {
+    display: flex;
+    position: relative;
+    transition: transform 0.5s ease-in-out;
+}
+
+.container-1-slides img {
+    width: 100%;
+    height: auto;
+    max-height: 800px;
+    max-width: 400px;
+}
+
+.container-1-slide {
+    min-width: 100%;
+    transition: transform 0.5s ease-in-out;
+}
+
+#container-1-left-arrow {
+    left: 40px;
+}
+
+#container-1-right-arrow {
+    right: 40px;
+}
+
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
+
+.material-symbols-outlined-fill {
+    font-variation-settings: "FILL" 1, "wght" 400, "GRAD" 0, "opsz" 24;
+    font-size: 2.2em;
+    color: #d4a10b;
+}
+
+.container-1-content-title {
+    font-size: 3em;
+}
+
+.display-image {
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+}
+
+.image-full {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* General Container */
+.room-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+/* Individual Room Card */
+.room-card {
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.room-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Room Image */
+.room-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Room Details */
+.room-details {
+    padding: 20px;
+    text-align: center;
+}
+
+/* Room Title */
+.room-title {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 10px;
+    font-family: Arial, sans-serif;
+}
+
+/* Room Description */
+.room-description {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+/* Room Price */
+.room-price {
+    font-size: 1rem;
+    color: #ff6f61;
+    margin: 15px 0;
+}
+
+/* Book Now Button */
+.btn-book {
+    display: inline-block;
+    background-color: #ff6f61;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn-book:hover {
+    background-color: #e05d53;
+    transform: scale(1.05);
+}
+
+/* Navbar Fix */
+.navbar {
+    background-color: #FFCC33;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar .navbar-brand {
+    font-family: 'SpongeBob', sans-serif;
+    font-weight: bold;
+}
+
+.navbar .nav-link {
+    font-size: 18px;
+    font-family: 'SpongeBob', sans-serif;
+}
+
+.navbar .navbar-nav {
+    display: flex;
+    gap: 20px;
+}
+
+.navbar .nav-item {
+    margin-left: 20px;
+}
+
+.navbar .nav-link:hover {
+    background-color: #FF8C00;
+    color: white;
+}

@@ -1,7 +1,7 @@
 /* Define your custom font */
 @font-face {
     font-family: 'SpongeBob';
-    src: url('font/Krabby Patty.ttf') format('truetype');
+    src: url('../font/Krabby Patty.ttf') format('truetype');
 }
 
 /* Apply the custom font */
