@@ -1,5 +1,5 @@
 <?php
-include 'db_config/connection.php'; // Include your database connection file
+include '..db_config/connection.php'; // Include your database connection file
 
 $input = json_decode(file_get_contents('php://input'), true);
 $username = $input['username'];
@@ -17,7 +17,7 @@ if ($user && password_verify($password, $user['pass_user'])) {
     if ($user['role'] == 1) {
         echo json_encode(['success' => true, 'redirect' => '../pageAdmin/pageAdmin.html']);
     } else {
-        echo json_encode(['success' => true, 'redirect' => '../pageReview/pageReview.html']);
+        echo json_encode(['success' => true, 'redirect' => '../pageReview/pagePreview.html']);
     }
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid email or password']);

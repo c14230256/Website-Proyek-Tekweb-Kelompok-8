@@ -34,7 +34,7 @@ session_start();
                 </li>
             <?php } else { ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="pageLogin.php">Login</a>
+                    <a class="nav-link" href="../pageLogin/pageLogin.html">Login</a>
                 </li>
             <?php } ?>
         </ul>
