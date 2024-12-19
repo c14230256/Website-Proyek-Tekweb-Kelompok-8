@@ -56,6 +56,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 // Fetch rooms for the selection dropdown
 $sql = "SELECT * FROM room"; // Assume a 'room' table exists with room details
 $result = mysqli_query($conn, $sql);
+
+// Fetch any existing reservation
+$user_id = $_SESSION['user_id']; // Assuming user_id is stored in session after login
+$reservation_sql = "SELECT * FROM reservation WHERE user_id = '$user_id' AND reservation_status = 'Pending' ORDER BY reservation_date DESC LIMIT 1";
+$reservation_result = mysqli_query($conn, $reservation_sql);
+$reservation = mysqli_fetch_assoc($reservation_result);
 ?>
 
 <!DOCTYPE html>
@@ -69,41 +75,60 @@ $result = mysqli_query($conn, $sql);
 </head>
 <body>
 
-<!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg" style="background-color: orange;">
-    <a class="navbar-brand" href="#">
-        <img src="../Image/KrustyLogo.png" class="krusty-logo" />
-    </a>
-
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav align-items-center">
-            <li class="nav-item">
-                <a class="nav-link" href="../pageReview/pagePreview.html" style="color: white;">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="../pageRoom/pageRoom.html" style="color: white;">Room</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#" style="color: white;">Accommodation</a>
-            </li>
-        </ul>
-
-        <ul class="navbar-nav align-items-center ms-auto">
-            <?php if (isset($_SESSION['user_id'])) { ?>
-                <li class="nav-item">
-                    <a class="nav-link" href="../pageBooking/bookingRoom.php" style="color: white;">Book Room</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="logout.php" style="color: white;">Logout</a>
-                </li>
-            <?php } else { ?>
-                <li class="nav-item">
-                    <a class="nav-link" href="../pageLogin/pageLogin.html" style="color: white;">Login</a>
-                </li>
-            <?php } ?>
-        </ul>
+<nav class="header">
+    <div class="header-top-1">
+        <div style="display: inline-flex; align-items: center">
+            <span class="material-symbols-outlined">call</span>
+            <span style="font-family: 'SpongeBob', sans-serif; font-weight: bold">
+                334-441-8088
+            </span>
+        </div>
     </div>
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">
+            <img src="../Image/KrustyLogo.png" class="krusty-logo" />
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="../pageReview/pagePreview.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="../pageRoom/pageRoom.html">Room</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../pageAccomendations/pageAcco.html">Accommodation</a>
+                </li>
+                <?php if (isset($_SESSION['loggedIn']) && $_SESSION['loggedIn'] === true) { ?>
+                    <!-- If the user is logged in, show "Book Room", "View Reservation" and "Logout" -->
+                    <?php
+                    // Check if the user has any pending reservation
+                    $user_id = $_SESSION['user_id']; // Assuming user_id is stored in session
+                    $reservation_sql = "SELECT * FROM reservation WHERE user_id = '$user_id' AND reservation_status = 'Pending' ORDER BY reservation_date DESC LIMIT 1";
+                    $reservation_result = mysqli_query($conn, $reservation_sql);
+                    $reservation = mysqli_fetch_assoc($reservation_result);
+                    ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../pageBooking/bookingRoom.php">Book Room</a>
+                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../pageBooking/viewReservation.php">View Reservation</a>
+                        </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="../pageLogin/logout.php">Logout</a>
+                    </li>
+                <?php } else { ?>
+                    <!-- If the user is not logged in, show "Login" -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="../pageLogin/pageLogin.php">Login</a>
+                    </li>
+                <?php } ?>
+            </ul>
+        </div>
+    </nav>
 </nav>
+
 
 <!-- Booking Room Form -->
 <div class="content">
@@ -115,34 +140,47 @@ $result = mysqli_query($conn, $sql);
             <div class="alert alert-info mt-3"><?= htmlspecialchars($_GET['message']); ?></div>
         <?php } ?>
 
+        <!-- Display Existing Reservation -->
+        <?php if ($reservation) { ?>
+            <div class="alert alert-warning mt-3">
+                You already have a pending reservation!<br>
+                Room: <?= $reservation['room_id']; ?><br>
+                Check-in: <?= $reservation['check_in']; ?><br>
+                Check-out: <?= $reservation['check_out']; ?>
+            </div>
+        <?php } ?>
+
+        <!-- Reservation Form -->
         <form method="POST" action="bookingRoom.php">
             <div class="mb-3">
                 <label for="name_user" class="form-label">Name</label>
-                <input type="text" name="name_user" id="name_user" class="form-control" required>
+                <input type="text" name="name_user" id="name_user" class="form-control" required value="<?= isset($reservation) ? $reservation['name_user'] : ''; ?>">
             </div>
 
             <div class="mb-3">
                 <label for="email_user" class="form-label">Email</label>
-                <input type="email" name="email_user" id="email_user" class="form-control" required>
+                <input type="email" name="email_user" id="email_user" class="form-control" required value="<?= isset($reservation) ? $reservation['email_user'] : ''; ?>">
             </div>
 
             <div class="mb-3">
                 <label for="room_id" class="form-label">Room</label>
                 <select name="room_id" id="room_id" class="form-select" required>
                     <?php while ($room = mysqli_fetch_assoc($result)) { ?>
-                        <option value="<?= $room['room_id']; ?>"><?= $room['room_type']; ?> - $<?= $room['price']; ?>/night</option>
+                        <option value="<?= $room['room_id']; ?>" <?= isset($reservation) && $reservation['room_id'] == $room['room_id'] ? 'selected' : ''; ?>>
+                            <?= $room['room_type']; ?> - $<?= $room['price']; ?>/night
+                        </option>
                     <?php } ?>
                 </select>
             </div>
 
             <div class="mb-3">
                 <label for="check_in" class="form-label">Check-in</label>
-                <input type="date" name="check_in" id="check_in" class="form-control" required>
+                <input type="date" name="check_in" id="check_in" class="form-control" required value="<?= isset($reservation) ? $reservation['check_in'] : ''; ?>">
             </div>
 
             <div class="mb-3">
                 <label for="check_out" class="form-label">Check-out</label>
-                <input type="date" name="check_out" id="check_out" class="form-control" required>
+                <input type="date" name="check_out" id="check_out" class="form-control" required value="<?= isset($reservation) ? $reservation['check_out'] : ''; ?>">
             </div>
 
             <button type="submit" class="btn btn-primary">Book Room</button>

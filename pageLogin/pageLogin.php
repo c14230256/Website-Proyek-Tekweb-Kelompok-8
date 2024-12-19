@@ -29,7 +29,7 @@ if (isset($_POST['login'])) {
         exit();
     } else {
         // If no redirect parameter is present, redirect to the default page
-        header("Location: pagePreview.php");
+        header("Location: ../pageReview/pagePreview.html");
         exit();
     }
             exit;
