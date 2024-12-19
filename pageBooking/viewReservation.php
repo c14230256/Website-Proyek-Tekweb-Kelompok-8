@@ -17,8 +17,10 @@ echo '</pre>';
 $user_id = $_SESSION['user_id']; // Assuming you store user_id in session after login
 
 // Fetch reservations for the logged-in user
-$sql = "SELECT * FROM reservation WHERE user_id = '$user_id' ORDER BY reservation_date DESC";
-$result = mysqli_query($conn, $sql);
+$stmt = $conn->prepare("SELECT * FROM reservation WHERE user_id = ? ORDER BY reservation_date DESC");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
 
 // Debug SQL results
 echo '<pre>';
@@ -62,7 +64,9 @@ echo '</pre>';
                     <a class="nav-link" style="color: black;" href="../pageBooking/bookingRoom.php">Book Room</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" style="color: black;" href="../pageLogin/pageLogin.php" >Login</a>
+                    <span class="nav-link">
+                    Hello, <?= htmlspecialchars($_SESSION['username']); ?>!
+                    </span>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" style="color: black;" href="../pageLogin/logout.php" >Logout</a>

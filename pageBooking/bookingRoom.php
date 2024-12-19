@@ -107,7 +107,11 @@ $reservation = mysqli_fetch_assoc($reservation_result);
                         <li class="nav-item">
                             <a class="nav-link" href="../pageBooking/viewReservation.php">View Reservation</a>
                         </li>
-                    
+                    <li class="nav-item">
+                        <span class="nav-link">
+                        Hello, <?= htmlspecialchars($_SESSION['username']); ?>!
+                        </span>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="../pageLogin/logout.php">Logout</a>
                     </li>
@@ -145,16 +149,6 @@ $reservation = mysqli_fetch_assoc($reservation_result);
 
         <!-- Reservation Form -->
         <form method="POST" action="bookingRoom.php">
-            <div class="mb-3">
-                <label for="name_user" class="form-label">Name</label>
-                <input type="text" name="name_user" id="name_user" class="form-control" required value="<?= isset($reservation) ? $reservation['name_user'] : ''; ?>">
-            </div>
-
-            <div class="mb-3">
-                <label for="email_user" class="form-label">Email</label>
-                <input type="email" name="email_user" id="email_user" class="form-control" required value="<?= isset($reservation) ? $reservation['email_user'] : ''; ?>">
-            </div>
-
             <div class="mb-3">
                 <label for="room_id" class="form-label">Room</label>
                 <select name="room_id" id="room_id" class="form-select" required>

@@ -24,16 +24,18 @@ if (isset($_POST['login'])) {
             $_SESSION['role'] = $row['role']; // Optional, for handling roles
 
             // Check if 'redirect' parameter is set
-    if (isset($_GET['redirect'])) {
-        $redirectPage = $_GET['redirect'];
-        header("Location: $redirectPage"); // Redirect to the specified page
-        exit();
-    } else {
-        // If no redirect parameter is present, redirect to the default page
-        header("Location: ../pageReview/pagePreview.php");
-        exit();
-    }
-            exit;
+            if (isset($_GET['redirect']) && !empty($_GET['redirect'])) {
+                $redirectPage = htmlspecialchars($_GET['redirect']); // Sanitize input
+                header("Location: $redirectPage");
+            } else {
+                // Default redirection based on role
+                if ($_SESSION['role'] === '1') {
+                    header("Location: ../pageAdmin/pageAdmin.html"); // Redirect to admin dashboard
+                } else {
+                    header("Location: ../pageReview/pagePreview.php"); // Default fallback
+                }
+            }
+            exit();
         } else {
             $error = "Invalid email or password!";
         }
@@ -42,6 +44,7 @@ if (isset($_POST['login'])) {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
