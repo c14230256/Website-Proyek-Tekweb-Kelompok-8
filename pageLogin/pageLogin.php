@@ -100,6 +100,14 @@ if (isset($_POST['login'])) {
                             <button id="submit" type="submit" name="login" class="btn btn-primary w-100">Login</button>
                         </div>
                     </form>
+                    <div class="d-flex justify-content-center align-items-center" style="display: flex; flex-direction:column">
+                        <div style="flex-direction: column;">
+                            Dont have an account?
+                        </div>
+                        <div>
+                            <a href="../pageRegister/pageRegister.html">Register</a>
+                        </div>
+                    </div>
 
                     <?php if (isset($error)): ?>
                         <div class="alert alert-danger mt-3"><?php echo $error; ?></div>
