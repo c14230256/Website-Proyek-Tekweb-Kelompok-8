@@ -107,16 +107,55 @@ require '../db_config/connection.php';
                     </div>
                 </div>
                 <div class="container-2">
-                    <div id="room-section" class="container-2">
-                        <div class="container-1-content-title">Rooms & Suites</div>
-                        <hr class="line-break" width="640px" />
-                        <div class="room-slider">
-                            <button id="prevRoom" class="btn btn-secondary">Prev</button>
-                            <div id="roomDisplay">
-                                <!-- Room details will be displayed here -->
+                        <div id = "room-section" class = "container-2">
+                            <div class = "container-1-content-title"> Rooms & Suites</div>
+                            <hr class = "line-break" width="640px"/>
+                            <div class = "container-2-content-subtitle">
+                                Normal Room
                             </div>
-                            <button id="nextRoom" class="btn btn-secondary">Next</button>
+                            <div class = "container-2-content-description">
+                                A Simple but comfy room!
+                            </div>
+                            <div class = "container-2-slider">
+                                <div class = "container-2-slides">
+                                <img
+                                    width="400px"
+                                    height="400px"
+                                    src="../Image/normalRoom.jpg"
+                                    alt = "Room 1"
+                                    class = "container-2-slide"
+                                />
+                                <img
+                                    width="400px"
+                                    height="400px"
+                                    src="../Image/funkRoom.jpg"
+                                    alt = "Room 2"
+                                    class = "container-2-slide"
+                                />
+                                <img
+                                width="400px"
+                                height="400px"
+                                    src="../Image/lumberJackRoom.jpg"
+                                    alt = "Room 3"
+                                    class = "container-2-slide"
+                                />
+                                <img
+                                    width="400px"
+                                    height="400px"
+                                    src="../Image/RoyalRoom.jpg"
+                                    alt = "Room 4"
+                                    class = "container-2-slide"
+                                />
+                                </div>
+                                <span id = "container-2-left-arrow" class = "arrow dot">
+                                <span class = "material-symbols-outlined"> arrow_back_ios</span>
+                                </span>
+                                <span id="container-2-right-arrow" class = "arrow dot">
+                                <span class = "material-symbols-outlined"> arrow_forward_ios </span>
+                                </span>
+                            </div>
                         </div>
+                        <div class="container-2-price" style = "font-size: 2em"> $350 / Day </div>
                     </div>
                 </div>
                 <div id="tourist-spot-section" class="container-3">

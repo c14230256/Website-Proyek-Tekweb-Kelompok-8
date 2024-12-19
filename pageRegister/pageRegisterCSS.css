@@ -1,9 +1,7 @@
-
 @font-face {
     font-family: 'SpongeBob';
     src: url('../font/Krabby Patty.ttf') format('truetype');
 }
-
 
 body {
     font-family: 'SpongeBob', sans-serif;
@@ -16,7 +14,6 @@ body {
 html, body {
     height: 100%;
 }
-
 
 .navbar {
     background-color: #FFCC33;
@@ -52,7 +49,6 @@ html, body {
     color: white;
 }
 
-
 .header-top-1 {
     display: flex;
     justify-content: space-between;
@@ -60,31 +56,36 @@ html, body {
     background-color: #FFCC33;
 }
 
-
 .footer {
-    background-color: #FF5733;
     position: fixed;
-    bottom: 0;
-    width: 100%;
+    background-color: #FF5733;
     color: white;
     padding: 20px;
     text-align: center;
-    height: 60px;
-    z-index: 1000;
+    bottom: 0;
+    width: 100%;
 }
 
 .main-content {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: calc(100vh - 60px); /* Subtract footer height */
     background: linear-gradient(to right, #373B44, #4286f4);
 }
 
 .card {
     padding: 2rem;
     background: linear-gradient(to bottom, #A1C935, #F8C146, #F39C12, #D35400);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
+/* Ensure the password field displays circles */
+input[type="password"] {
+    -webkit-text-security: disc;
 }
 
 label {
