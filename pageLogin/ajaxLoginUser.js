@@ -3,7 +3,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    fetch('pageLogin.php', {
+    fetch('../pageLogin/pageLogin.php', { // This path should be correct as per your directory
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

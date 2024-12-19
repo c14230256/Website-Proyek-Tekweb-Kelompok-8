@@ -1,16 +1,5 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "proyek_tekweb";
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include '../db_config/connection.php'; // Include your database connection file
 
 $input = json_decode(file_get_contents('php://input'), true);
 $user_email = $input['email'];
