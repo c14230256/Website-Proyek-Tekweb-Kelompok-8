@@ -3,44 +3,59 @@ session_start();
 require '../db_config/connection.php'; // For the database connection
 
 // Check if user is logged in
-if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] !== true || !isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] !== true) {
     // Redirect to login page with the redirect parameter to go back to booking room after login
     header("Location: ../pageLogin/pageLogin.php?redirect=../pageBooking/bookingRoom.php");
     exit;
 }
 
-// Get the user_id from the session
-$user_id = $_SESSION['user_id'];
-
-// Fetch rooms for the selection dropdown
-$sql = "SELECT * FROM room"; // Assume a 'room' table exists with room details
-$result = mysqli_query($conn, $sql);
-
 // Handle reservation form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // Get the user input
+    $name_user = $_POST['name_user'];
+    $email_user = $_POST['email_user'];
     $room_id = $_POST['room_id'];
     $check_in = $_POST['check_in'];
     $check_out = $_POST['check_out'];
-
-    // Check if the user exists in the database
-    $sql = "SELECT * FROM user WHERE id_user = '$user_id'";
+    
+    // Check if the user already exists in the user table based on email
+    $sql = "SELECT id_user FROM user WHERE user_email = '$email_user'";
     $user_check = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($user_check) > 0) {
-        // User exists, proceed with the reservation
-        $query = "INSERT INTO reservation (user_id, room_id, check_in, check_out, reservation_status, reservation_date)
-                  VALUES ('$user_id', '$room_id', '$check_in', '$check_out', 'Pending', NOW())"; // NOW() to insert the current timestamp
+        // User exists, fetch the user_id
+        $user = mysqli_fetch_assoc($user_check);
+        $user_id = $user['id_user'];
+    } else {
+        // If the user doesn't exist, insert a new user into the user table
+        $insert_user_sql = "INSERT INTO user (name_user, user_email) VALUES ('$name_user', '$email_user')";
+        if (mysqli_query($conn, $insert_user_sql)) {
+            $user_id = mysqli_insert_id($conn); // Get the newly inserted user_id
+        } else {
+            $message = "Error adding new user: " . mysqli_error($conn);
+        }
+    }
+
+    // Now proceed with the reservation insertion
+    if (isset($user_id)) {
+        $query = "INSERT INTO reservation (user_id, room_id, check_in, check_out, reservation_status, reservation_date, name_user, email_user)
+                  VALUES ('$user_id', '$room_id', '$check_in', '$check_out', 'Pending', NOW(), '$name_user', '$email_user')";
 
         if (mysqli_query($conn, $query)) {
-            $message = "Reservation made successfully!";
+            // Success: Redirect to avoid resubmission
+            header("Location: bookingRoom.php?message=Reservation+made+successfully");
+            exit;
         } else {
             $message = "Error: " . mysqli_error($conn);
         }
     } else {
-        // User does not exist
         $message = "User not found, please log in again.";
     }
 }
+
+// Fetch rooms for the selection dropdown
+$sql = "SELECT * FROM room"; // Assume a 'room' table exists with room details
+$result = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -50,12 +65,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book Room</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="booking.css" />
+    <link rel="stylesheet" href="../pageBooking/booking.css" />
 </head>
 <body>
 
 <!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg" style="background-color: orange;">
     <a class="navbar-brand" href="#">
         <img src="../Image/KrustyLogo.png" class="krusty-logo" />
     </a>
@@ -63,33 +78,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav align-items-center">
             <li class="nav-item">
-                <a class="nav-link" href="../pageReview/pagePreview.html">Home</a>
+                <a class="nav-link" href="../pageReview/pagePreview.html" style="color: white;">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="../pageRoom/pageRoom.html">Room</a>
+                <a class="nav-link active" href="../pageRoom/pageRoom.html" style="color: white;">Room</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Accommodation</a>
+                <a class="nav-link" href="#" style="color: white;">Accommodation</a>
             </li>
         </ul>
 
-        <ul class="navbar-nav align-items-center">
-            <li style="float: right" class="nav-item">
-                <a class="nav-link" href="../pageBooking/bookingRoom.php">Book Room</a>
-            </li>
-        </ul>
-
-        <ul class="navbar-nav ml-auto">
+        <ul class="navbar-nav align-items-center ms-auto">
             <?php if (isset($_SESSION['user_id'])) { ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="../pageBooking/bookingRoom.php">Book Room</a>
+                    <a class="nav-link" href="../pageBooking/bookingRoom.php" style="color: white;">Book Room</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="logout.php">Logout</a>
+                    <a class="nav-link" href="logout.php" style="color: white;">Logout</a>
                 </li>
             <?php } else { ?>
                 <li class="nav-item">
-                    <a class="nav-link" href="../pageLogin/pageLogin.html">Login</a>
+                    <a class="nav-link" href="../pageLogin/pageLogin.html" style="color: white;">Login</a>
                 </li>
             <?php } ?>
         </ul>
@@ -97,31 +106,48 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </nav>
 
 <!-- Booking Room Form -->
-<div class="container mt-4">
-    <h2>Reserve a Room</h2>
-    <form method="POST" action="bookingRoom.php">
-        <div class="mb-3">
-            <label for="room_id" class="form-label">Select Room</label>
-            <select name="room_id" id="room_id" class="form-select" required>
-                <?php while ($room = mysqli_fetch_assoc($result)) { ?>
-                    <option value="<?= $room['room_id']; ?>"><?= $room['room_type']; ?> - $<?= $room['price']; ?>/night</option>
-                <?php } ?>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="check_in" class="form-label">Check-in Date</label>
-            <input type="date" name="check_in" id="check_in" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label for="check_out" class="form-label">Check-out Date</label>
-            <input type="date" name="check_out" id="check_out" class="form-control" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Book Room</button>
-    </form>
-    
-    <?php if (isset($message)) { ?>
-        <div class="alert alert-info mt-3"><?= $message; ?></div>
-    <?php } ?>
+<div class="content">
+    <div class="container mt-4">
+        <h2>Reserve a Room</h2>
+        
+        <!-- Display message -->
+        <?php if (isset($_GET['message'])) { ?>
+            <div class="alert alert-info mt-3"><?= htmlspecialchars($_GET['message']); ?></div>
+        <?php } ?>
+
+        <form method="POST" action="bookingRoom.php">
+            <div class="mb-3">
+                <label for="name_user" class="form-label">Name</label>
+                <input type="text" name="name_user" id="name_user" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="email_user" class="form-label">Email</label>
+                <input type="email" name="email_user" id="email_user" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="room_id" class="form-label">Room</label>
+                <select name="room_id" id="room_id" class="form-select" required>
+                    <?php while ($room = mysqli_fetch_assoc($result)) { ?>
+                        <option value="<?= $room['room_id']; ?>"><?= $room['room_type']; ?> - $<?= $room['price']; ?>/night</option>
+                    <?php } ?>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="check_in" class="form-label">Check-in</label>
+                <input type="date" name="check_in" id="check_in" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="check_out" class="form-label">Check-out</label>
+                <input type="date" name="check_out" id="check_out" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Book Room</button>
+        </form>
+    </div>
 </div>
 
 </body>
