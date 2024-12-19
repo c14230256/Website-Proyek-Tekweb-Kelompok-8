@@ -30,7 +30,7 @@ if (isset($_POST['login'])) {
             } else {
                 // Default redirection based on role
                 if ($_SESSION['role'] === '1') {
-                    header("Location: ../pageAdmin/pageAdmin.html"); // Redirect to admin dashboard
+                    header("Location: ../pageAdmin/pageAdmin.php"); // Redirect to admin dashboard
                 } else {
                     header("Location: ../pageReview/pagePreview.php"); // Default fallback
                 }

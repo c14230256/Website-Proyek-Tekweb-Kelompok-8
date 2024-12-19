@@ -1,5 +1,6 @@
 <?php 
 session_start();
+require '../db_config/connection.php';
 ?>
 
 
@@ -50,7 +51,7 @@ session_start();
                       </ul>
                       <ul class="navbar-nav align-items-center">
                         <li style="float: right" class="nav-item">
-                            <a href="../pageLogin/pageLogin.php?redirect=../pageBooking/bookingRoom.php" class="nav-link">Book Room</a>
+                            <a href="../pageBooking/bookingRoom.php" class="nav-link">Book Room</a>
                         </li>
                         <?php if (isset($_SESSION['user_id'])): ?>
                             <li>

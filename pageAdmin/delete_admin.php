@@ -6,9 +6,9 @@ if ($conn->connect_error) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $user_id = $_POST['user_id'];
+    $user_id = $_POST['admin_id'];
     
-    $sql = "DELETE FROM user WHERE id_user = ?";
+    $sql = "UPDATE user SET role = 0 WHERE id_user = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $user_id);
     

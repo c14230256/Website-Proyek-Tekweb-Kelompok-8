@@ -1,6 +1,11 @@
 <?php 
 session_start();
 
+if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] !== true || $_SESSION['role'] != 1) {
+    header("Location: logout.php");
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +28,10 @@ session_start();
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav align-items-center">
                 <li class="nav-item">
-                    <span class="nav-link active">Welcome Back, Krusty Krew!</span>
+                    <span class="nav-link active">Welcome Back, Admin <?= htmlspecialchars($_SESSION['user_id']);?></span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../pageLogin/logout.php">Logout</a>
                 </li>
             </ul>
         </div>
