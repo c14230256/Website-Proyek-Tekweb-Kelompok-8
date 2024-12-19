@@ -1,3 +1,9 @@
+<?php 
+session_start();
+print_r($_SESSION);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,12 +53,21 @@
                         <li style="float: right" class="nav-item">
                             <a href="../pageLogin/pageLogin.php?redirect=../pageBooking/bookingRoom.php" class="nav-link">Book Room</a>
                         </li>
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                            <li>
+                                <span class="nav-link">Hello, <?= htmlspecialchars($_SESSION['username']); ?>!</span>
+                            </li>
+                            <li>
+                                <a href="../pageLogin/logout.php" class="nav-link">Logout</a>
+                            </li>
+                        <?php else: ?>
                         <li class="nav-item">
                             <a class="nav-link" href="../pageLogin/pageLogin.php" >Login</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="../pageRegister/pageRegister.html">Register</a>
                         </li>
+                        <?php endif; ?>
                       </ul>
                     </div>
                 </div>

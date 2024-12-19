@@ -10,7 +10,7 @@ if (isset($_POST['login'])) {
     $query = "SELECT * FROM user WHERE user_email='$email'";
     $result = mysqli_query($conn, $query);
 
-    if (mysqli_num_rows($result) === 1) {
+    if ($result && mysqli_num_rows($result) === 1) {
         $row = mysqli_fetch_assoc($result);
 
         // Verify password using salt and hashing
@@ -18,7 +18,8 @@ if (isset($_POST['login'])) {
         if ($hashedPassword === $row['pass_user']) {
             // Set session variables
             $_SESSION['loggedIn'] = true;
-            $_SESSION['user_id'] = $row['user_id']; // Ensure user_id is being set
+            $_SESSION['username'] = $row['name_user'];
+            $_SESSION['user_id'] = $row['id_user']; // Ensure user_id is being set
             $_SESSION['email'] = $row['user_email'];
             $_SESSION['role'] = $row['role']; // Optional, for handling roles
 
@@ -29,7 +30,7 @@ if (isset($_POST['login'])) {
         exit();
     } else {
         // If no redirect parameter is present, redirect to the default page
-        header("Location: ../pageReview/pagePreview.html");
+        header("Location: ../pageReview/pagePreview.php");
         exit();
     }
             exit;
@@ -74,7 +75,7 @@ if (isset($_POST['login'])) {
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav align-items-center">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="../pageReview/pagePreview.html">Home</a>
+                                <a class="nav-link active" aria-current="page" href="../pageReview/pagePreview.php">Home</a>
                             </li>
                         </ul>
                     </div>
