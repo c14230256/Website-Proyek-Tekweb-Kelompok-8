@@ -1,6 +1,5 @@
 document.getElementById('loginForm').addEventListener('submit', function(event) {
     event.preventDefault();
-    const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
@@ -9,7 +8,7 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username: username, email: email, password: password })
+        body: JSON.stringify({ email: email, password: password })
     })
     .then(response => response.json())
     .then(data => {
