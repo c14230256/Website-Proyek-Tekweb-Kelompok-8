@@ -28,12 +28,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $user_id = $user['id_user'];
     } else {
         // If the user doesn't exist, insert a new user into the user table
-        $insert_user_sql = "INSERT INTO user (name_user, user_email) VALUES ('$name_user', '$email_user')";
-        if (mysqli_query($conn, $insert_user_sql)) {
-            $user_id = mysqli_insert_id($conn); // Get the newly inserted user_id
-        } else {
-            $message = "Error adding new user: " . mysqli_error($conn);
-        }
+      //  $insert_user_sql = "INSERT INTO user (name_user, user_email) VALUES ('$name_user', '$email_user')";
+      //  if (mysqli_query($conn, $insert_user_sql)) {
+     //       $user_id = mysqli_insert_id($conn); // Get the newly inserted user_id
+     //   } else {
+          //  $message = "Error adding new user: " . mysqli_error($conn);
+      //  }
     }
 
     // Now proceed with the reservation insertion
