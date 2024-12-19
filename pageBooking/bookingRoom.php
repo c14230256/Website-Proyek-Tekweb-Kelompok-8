@@ -79,12 +79,12 @@ $reservation = mysqli_fetch_assoc($reservation_result);
     
     <nav class="navbar navbar-expand-lg">
         <a class="navbar-brand" href="#">
-            <img src="../Image/KrustyLogo.png" class="krusty-logo" />
+            <img src="../Image/KrustyLogo.png" style="width: 75px" class="krusty-logo" />
         </a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav align-items-center">
                 <li class="nav-item">
-                    <a class="nav-link" href="../pageReview/pagePreview.html">Home</a>
+                    <a class="nav-link" href="../pageReview/pagePreview.php">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" href="../pageRoom/pageRoom.html">Room</a>
