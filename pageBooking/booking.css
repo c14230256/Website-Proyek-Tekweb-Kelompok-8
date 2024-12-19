@@ -8,7 +8,8 @@
 body {
     font-family: 'SpongeBob', sans-serif;
     margin: 0;
-    padding-top: 40px;
+    padding-top: 200px; /* Increased padding to accommodate the navbar height */
+    
 }
 
 /* Navbar Styling */
@@ -61,12 +62,12 @@ body {
 
 /* Adjust the space for the fixed navbar */
 .content {
-    margin-top: 40px; /* Add enough space to ensure the content is not hidden under the navbar */
+    margin-top: 100px; /* Ensure the content is not hidden under the navbar */
 }
 
 /* Ensure the form is properly spaced from the navbar */
 .container.mt-4 {
-    margin-top: 20px; /* Make sure the form doesn't overlap the navbar */
+    margin-top: 200px; /* Make sure the form doesn't overlap the navbar */
 }
 
 /* Header */
@@ -216,6 +217,11 @@ body {
 .btn-book:hover {
     background-color: #e05d53;
     transform: scale(1.05);
+}
+.krusty-logo {
+    margin-left: 50px;
+    width: 160px;
+    height: auto;
 }
 
 /* Responsive Design */

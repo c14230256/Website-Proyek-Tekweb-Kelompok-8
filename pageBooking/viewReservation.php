@@ -9,11 +9,21 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] !== true) {
     exit;
 }
 
+// Debug session data
+echo '<pre>';
+print_r($_SESSION);
+echo '</pre>';
+
 $user_id = $_SESSION['user_id']; // Assuming you store user_id in session after login
 
 // Fetch reservations for the logged-in user
 $sql = "SELECT * FROM reservation WHERE user_id = '$user_id' ORDER BY reservation_date DESC";
 $result = mysqli_query($conn, $sql);
+
+// Debug SQL results
+echo '<pre>';
+print_r(mysqli_fetch_all($result, MYSQLI_ASSOC));
+echo '</pre>';
 ?>
 
 <!DOCTYPE html>
@@ -23,33 +33,43 @@ $result = mysqli_query($conn, $sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Reservations</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="booking.css">
 </head>
 <body>
 
 <!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg">
-    <a class="navbar-brand" href="#">
-        <img src="../Image/KrustyLogo.png" class="krusty-logo" />
-    </a>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav align-items-center">
-            <li class="nav-item">
-                <a class="nav-link" href="../pageReview/pagePreview.html">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="../pageRoom/pageRoom.html">Room</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../pageAccomendations/pageAcco.html">Accommodation</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../pageBooking/bookingRoom.php">Book Room</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="logout.php">Logout</a>
-            </li>
-        </ul>
-    </div>
+<nav class="header">
+    <nav class="navbar navbar-expand-lg">
+        <!-- logo-->
+        <a class="navbar-brand" href="#">
+            <img src="../Image/KrustyLogo.png" class="krusty-logo" />
+        </a>
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link" style="color: black;" href="../pageReview/pagePreview.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" style="color: black;" href="../pageRoom/pageRoom.html">Room</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color: black;" href="../pageAccomendations/pageAcco.html">Accommodation</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav align-items-center">
+                <li style="float: right" class="nav-item">
+                    <a class="nav-link" style="color: black;" href="../pageBooking/bookingRoom.php">Book Room</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color: black;" href="../pageLogin/pageLogin.php" >Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color: black;" href="../pageLogin/logout.php" >Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 </nav>
 
 <!-- View Reservations -->

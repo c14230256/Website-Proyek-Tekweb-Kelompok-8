@@ -38,8 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Now proceed with the reservation insertion
     if (isset($user_id)) {
-        $query = "INSERT INTO reservation (user_id, room_id, check_in, check_out, reservation_status, reservation_date, name_user, email_user)
-                  VALUES ('$user_id', '$room_id', '$check_in', '$check_out', 'Pending', NOW(), '$name_user', '$email_user')";
+        $query = "INSERT INTO reservation (user_id, room_id, check_in, check_out, reservation_status, reservation_date)
+                  VALUES ('$user_id', '$room_id', '$check_in', '$check_out', 'Pending', NOW())";
 
         if (mysqli_query($conn, $query)) {
             // Success: Redirect to avoid resubmission
@@ -76,14 +76,7 @@ $reservation = mysqli_fetch_assoc($reservation_result);
 <body>
 
 <nav class="header">
-    <div class="header-top-1">
-        <div style="display: inline-flex; align-items: center">
-            <span class="material-symbols-outlined">call</span>
-            <span style="font-family: 'SpongeBob', sans-serif; font-weight: bold">
-                334-441-8088
-            </span>
-        </div>
-    </div>
+    
     <nav class="navbar navbar-expand-lg">
         <a class="navbar-brand" href="#">
             <img src="../Image/KrustyLogo.png" class="krusty-logo" />
