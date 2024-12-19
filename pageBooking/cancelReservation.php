@@ -5,7 +5,7 @@ require '../db_config/connection.php'; // For the database connection
 // Check if user is logged in
 if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] !== true) {
     // Redirect to login page if user is not logged in
-    header("Location: ../pageLogin/pageLogin.php?redirect=../pageBooking/cancelReservation.php");
+    header("Location: ../pageLogin/viewReservation.php?redirect=../pageBooking/cancelReservation.php");
     exit;
 }
 

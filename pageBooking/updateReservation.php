@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $update_sql = "UPDATE reservation SET check_in = '$check_in', check_out = '$check_out' WHERE reservation_id = '$reservation_id'";
     
     if (mysqli_query($conn, $update_sql)) {
-        header("Location: viewReservations.php?message=Reservation updated successfully");
+        header("Location: viewReservation.php?message=Reservation updated successfully");
         exit;
     } else {
         echo "Error updating reservation: " . mysqli_error($conn);
@@ -46,33 +46,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Reservation</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="booking.css">
+
 </head>
 <body>
 
-<!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg">
-    <a class="navbar-brand" href="#">
-        <img src="../Image/KrustyLogo.png" class="krusty-logo" />
-    </a>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav align-items-center">
-            <li class="nav-item">
-                <a class="nav-link" href="../pageReview/pagePreview.html">Home</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="../pageRoom/pageRoom.html">Room</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../pageAccomendations/pageAcco.html">Accommodation</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="../pageBooking/bookingRoom.php">Book Room</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="logout.php">Logout</a>
-            </li>
-        </ul>
-    </div>
+<nav class="header">
+    <nav class="navbar navbar-expand-lg">
+        <!-- logo-->
+        <a class="navbar-brand" href="#">
+            <img src="../Image/KrustyLogo.png" class="krusty-logo" />
+        </a>
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link" style="color: black;" href="../pageReview/pagePreview.php">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" style="color: black;" href="../pageRoom/pageRoom.html">Room</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color: black;" href="../pageAccomendations/pageAcco.html">Accommodation</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link" style="color: black;" href="../pageBooking/bookingRoom.php">Book Room</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color: black;" href="../pageLogin/pageLogin.php">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" style="color: black;" href="../pageLogin/logout.php">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 </nav>
 
 <!-- Update Reservation Form -->
