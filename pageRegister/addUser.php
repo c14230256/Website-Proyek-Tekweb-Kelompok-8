@@ -11,15 +11,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo "console.log('Form submission intercepted!')";
+        echo "Invalid email format.";
         exit;
     }
 
-
+    // Generate a random salt
     $salt = bin2hex(random_bytes(16));
 
+    // Combine password and salt, then hash the result
     $hashedPassword = hash('sha256', $password . $salt);
 
+    // Prepare the SQL query to insert user data
     $stmt = $conn->prepare("INSERT INTO user (name_user, user_email, pass_user, salt) VALUES (?, ?, ?, ?)");
     if (!$stmt) {
         die("SQL error: " . $conn->error);
@@ -40,5 +42,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close();
 }
 $conn->close();
-
 ?>

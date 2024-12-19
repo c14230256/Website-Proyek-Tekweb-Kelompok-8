@@ -7,60 +7,64 @@
 /* Apply the custom font */
 body {
     font-family: 'SpongeBob', sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-.navbar-brand img { 
-    margin-left: 40px;
-}
-
-.krusty-logo {
-    margin-left: 50px;
-    width: 160px;
-    height: auto;
-}
-
-/* Make the navbar fixed */
+/* Navbar Styling */
 .navbar {
     background-color: #FFCC33;
-    padding: 0;
-    margin: 0;
+    padding: 10px 0;
     position: fixed;
-    top: 0;
     width: 100%;
+    top: 0;
     z-index: 1000; /* Ensure it stays on top of other content */
 }
 
-.navbar .navbar-brand,
-.navbar-nav {
-    display: flex;
-    align-items: center;
-}
-
-.navbar-nav {
-    display: flex;
-    align-items: center;
-    margin-left: 160px;
-}
-
-.nav-item {
+.navbar .navbar-brand {
+    font-family: 'SpongeBob', sans-serif;
+    font-weight: bold;
     margin-left: 20px;
 }
 
-.nav-link {
+.navbar .nav-link {
+    font-size: 18px;
+    font-family: 'SpongeBob', sans-serif;
     color: #000000;
     padding: 14px 16px;
     text-decoration: none;
     text-align: center;
-    font-family: 'SpongeBob', sans-serif;
-    font-size: 18px;
     border-radius: 40px;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-.nav-link:hover {
+.navbar .nav-link:hover {
     background-color: #FF8C00;
     color: white;
 }
 
+.navbar .navbar-nav {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-left: 160px;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .nav-item {
+    margin-left: 20px;
+}
+
+/* Make space for the fixed navbar */
+.content {
+    padding-top: 120px; /* Adjust this value to match the height of your navbar */
+}
+
+/* Header */
 .header-top-1 {
     display: flex;
     justify-content: space-between;
@@ -70,42 +74,24 @@ body {
     top: 0;
 }
 
-/* Add padding to top of content to offset the fixed navbar */
-.content {
-    display: flex;
-    flex-direction: column;
-    padding-top: 120px; /* Adjust this value to match the height of your navbar */
-}
-
-
+/* Footer Styling */
 .footer {
     background-color: #FF5733;
     color: white;
     padding: 20px;
     text-align: center;
-    margin-top: 40px;
     font-family: 'SpongeBob', sans-serif;
     width: 100%;
 }
 
-.container-1 {
+/* Container Styling */
+.container-1, .container-2 {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.container-2 {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.image-container {
-    display: flex;
-    transition: transform 0.5s ease-out;
-}
-
-.container-1-slider {
+.container-1-slider, .container-2-slider {
     position: relative;
     width: 100%;
     overflow: hidden;
@@ -127,15 +113,16 @@ body {
 
 .container-1-slide {
     min-width: 100%;
-    transition: transform 0.5s ease-in-out;
 }
 
-#container-1-left-arrow {
-    left: 40px;
-}
-
-#container-1-right-arrow {
-    right: 40px;
+#container-1-left-arrow, #container-1-right-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 50%;
+    color: white;
 }
 
 .material-symbols-outlined {
@@ -148,23 +135,7 @@ body {
     color: #d4a10b;
 }
 
-.container-1-content-title {
-    font-size: 3em;
-}
-
-.display-image {
-    width: 100%;
-    height: 500px;
-    overflow: hidden;
-}
-
-.image-full {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* General Container */
+/* Room Cards */
 .room-container {
     display: flex;
     gap: 10px;
@@ -173,7 +144,6 @@ body {
     padding: 10px;
 }
 
-/* Individual Room Card */
 .room-card {
     width: 300px;
     border: 1px solid #ddd;
@@ -243,36 +213,34 @@ body {
     transform: scale(1.05);
 }
 
-/* Navbar Fix */
-.navbar {
-    background-color: #FFCC33;
-    padding: 10px 0;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar-nav {
+        margin-left: 0;
+    }
+
+    .navbar .navbar-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar .nav-item {
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+
+    .room-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .room-card {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+
+    .footer {
+        padding: 10px;
+    }
 }
 
-.navbar .navbar-brand {
-    font-family: 'SpongeBob', sans-serif;
-    font-weight: bold;
-}
-
-.navbar .nav-link {
-    font-size: 18px;
-    font-family: 'SpongeBob', sans-serif;
-}
-
-.navbar .navbar-nav {
-    display: flex;
-    gap: 20px;
-}
-
-.navbar .nav-item {
-    margin-left: 20px;
-}
-
-.navbar .nav-link:hover {
-    background-color: #FF8C00;
-    color: white;
-}
