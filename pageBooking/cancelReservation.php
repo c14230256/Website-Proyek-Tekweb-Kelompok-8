@@ -27,7 +27,7 @@ if (!$reservation) {
 $delete_sql = "DELETE FROM reservation WHERE reservation_id = '$reservation_id'";
 
 if (mysqli_query($conn, $delete_sql)) {
-    header("Location: viewReservations.php?message=Reservation canceled successfully");
+    header("Location: ../pageBooking/viewReservation.php");
     exit;
 } else {
     echo "Error canceling reservation: " . mysqli_error($conn);

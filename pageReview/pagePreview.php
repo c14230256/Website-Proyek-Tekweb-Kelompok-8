@@ -40,7 +40,7 @@ require '../db_config/connection.php';
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav align-items-center">
                         <li class="nav-item">
-                          <a class="nav-link" href="../pageReview/pagePreview.html">Home</a>
+                          <a class="nav-link" href="../pageReview/pagePreview.php">Home</a>
                         </li>
                         <li class="nav-item">
                           <a class="nav-link active" href="../pageRoom/pageRoom.html">Room</a>

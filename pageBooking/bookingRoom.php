@@ -12,30 +12,20 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] !== true) {
 // Handle reservation form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get the user input
-    $name_user = $_POST['name_user'];
-    $email_user = $_POST['email_user'];
+    $userId = $_SESSION['user_id'];
     $room_id = $_POST['room_id'];
     $check_in = $_POST['check_in'];
     $check_out = $_POST['check_out'];
     
     // Check if the user already exists in the user table based on email
-    $sql = "SELECT id_user FROM user WHERE user_email = '$email_user'";
+    $sql = "SELECT id_user FROM user WHERE id_user = '$userId'";
     $user_check = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($user_check) > 0) {
         // User exists, fetch the user_id
         $user = mysqli_fetch_assoc($user_check);
         $user_id = $user['id_user'];
-    } else {
-        // If the user doesn't exist, insert a new user into the user table
-      //  $insert_user_sql = "INSERT INTO user (name_user, user_email) VALUES ('$name_user', '$email_user')";
-      //  if (mysqli_query($conn, $insert_user_sql)) {
-     //       $user_id = mysqli_insert_id($conn); // Get the newly inserted user_id
-     //   } else {
-          //  $message = "Error adding new user: " . mysqli_error($conn);
-      //  }
-    }
-
+    } 
     // Now proceed with the reservation insertion
     if (isset($user_id)) {
         $query = "INSERT INTO reservation (user_id, room_id, check_in, check_out, reservation_status, reservation_date)
