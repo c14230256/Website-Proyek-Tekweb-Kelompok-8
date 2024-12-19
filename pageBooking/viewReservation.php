@@ -1,29 +1,21 @@
 <?php
 session_start();
-require '../db_config/connection.php'; // For the database connection
+require '../db_config/connection.php'; // Database connection
 
 // Check if user is logged in
 if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] !== true) {
-    // Redirect to login page with the redirect parameter to go back to view reservations after login
     header("Location: ../pageLogin/pageLogin.php?redirect=../pageBooking/viewReservations.php");
     exit;
 }
 
-// Debug session data
-echo '<pre>';
-print_r($_SESSION);
-echo '</pre>';
+$user_id = $_SESSION['user_id']; // Assuming user_id is stored in session after login
 
-$user_id = $_SESSION['user_id']; // Assuming you store user_id in session after login
+// Use prepared statements to prevent SQL injection
+$stmt = $conn->prepare("SELECT * FROM reservation WHERE user_id = ? ORDER BY reservation_date DESC");
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
 
-// Fetch reservations for the logged-in user
-$sql = "SELECT * FROM reservation WHERE user_id = '$user_id' ORDER BY reservation_date DESC";
-$result = mysqli_query($conn, $sql);
-
-// Debug SQL results
-echo '<pre>';
-print_r(mysqli_fetch_all($result, MYSQLI_ASSOC));
-echo '</pre>';
 ?>
 
 <!DOCTYPE html>
@@ -58,14 +50,14 @@ echo '</pre>';
                 </li>
             </ul>
             <ul class="navbar-nav align-items-center">
-                <li style="float: right" class="nav-item">
+                <li class="nav-item">
                     <a class="nav-link" style="color: black;" href="../pageBooking/bookingRoom.php">Book Room</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" style="color: black;" href="../pageLogin/pageLogin.php" >Login</a>
+                    <a class="nav-link" style="color: black;" href="../pageLogin/pageLogin.php">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" style="color: black;" href="../pageLogin/logout.php" >Logout</a>
+                    <a class="nav-link" style="color: black;" href="../pageLogin/logout.php">Logout</a>
                 </li>
             </ul>
         </div>
@@ -76,9 +68,9 @@ echo '</pre>';
 <div class="container mt-4">
     <h2>Your Reservations</h2>
 
-    <?php if (mysqli_num_rows($result) > 0) { ?>
-        <table class="table table-bordered">
-            <thead>
+    <?php if ($result->num_rows > 0) { ?>
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
                 <tr>
                     <th>Room</th>
                     <th>Check-in</th>
@@ -88,24 +80,30 @@ echo '</pre>';
                 </tr>
             </thead>
             <tbody>
-                <?php while ($reservation = mysqli_fetch_assoc($result)) { ?>
+                <?php while ($reservation = $result->fetch_assoc()) { ?>
                     <tr>
-                        <td><?= $reservation['room_id']; ?></td>
-                        <td><?= $reservation['check_in']; ?></td>
-                        <td><?= $reservation['check_out']; ?></td>
-                        <td><?= $reservation['reservation_status']; ?></td>
+                        <td><?= htmlspecialchars($reservation['room_id']); ?></td>
+                        <td><?= htmlspecialchars($reservation['check_in']); ?></td>
+                        <td><?= htmlspecialchars($reservation['check_out']); ?></td>
+                        <td><?= htmlspecialchars($reservation['reservation_status']); ?></td>
                         <td>
-                            <a href="updateReservation.php?id=<?= $reservation['reservation_id']; ?>" class="btn btn-warning">Edit</a>
-                            <a href="cancelReservation.php?id=<?= $reservation['reservation_id']; ?>" class="btn btn-danger">Cancel</a>
+                            <a href="updateReservation.php?id=<?= $reservation['reservation_id']; ?>" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="cancelReservation.php?id=<?= $reservation['reservation_id']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to cancel this reservation?');">Cancel</a>
                         </td>
                     </tr>
                 <?php } ?>
             </tbody>
         </table>
     <?php } else { ?>
-        <p>No reservations found.</p>
+        <p class="alert alert-info">No reservations found.</p>
     <?php } ?>
 </div>
 
 </body>
 </html>
+
+<?php
+// Close the database connection
+$stmt->close();
+$conn->close();
+?>
