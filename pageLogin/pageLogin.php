@@ -1,40 +1,35 @@
 <?php
 session_start();
-require '../db_config/connection.php'; // Your database connection file
+require '../db_config/connection.php'; 
 
 if (isset($_POST['login'])) {
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = $_POST['password'];
 
-    // Query to fetch user based on email
+    //fetch email
     $query = "SELECT * FROM user WHERE user_email='$email'";
     $result = mysqli_query($conn, $query);
 
     if ($result && mysqli_num_rows($result) === 1) {
         $row = mysqli_fetch_assoc($result);
 
-        // Verify password using salt and hashing
+        // Verify password pakai salt and hashing
         $hashedPassword = hash('sha256', $password . $row['salt']);
         if ($hashedPassword === $row['pass_user']) {
-            // Set session variables
+            //session variable
             $_SESSION['loggedIn'] = true;
             $_SESSION['username'] = $row['name_user'];
-            $_SESSION['user_id'] = $row['id_user']; // Ensure user_id is being set
+            $_SESSION['user_id'] = $row['id_user']; 
             $_SESSION['email'] = $row['user_email'];
-            $_SESSION['role'] = $row['role']; // Optional, for handling roles
+            $_SESSION['role'] = $row['role'];
 
-            // Check if 'redirect' parameter is set
-            if (isset($_GET['redirect']) && !empty($_GET['redirect'])) {
-                $redirectPage = htmlspecialchars($_GET['redirect']); // Sanitize input
-                header("Location: $redirectPage");
+            
+            if ($_SESSION['role'] === '1') {
+                header("Location: ../pageAdmin/pageAdmin.php"); // Redirect to admin dashboard
             } else {
-                // Default redirection based on role
-                if ($_SESSION['role'] === '1') {
-                    header("Location: ../pageAdmin/pageAdmin.php"); // Redirect to admin dashboard
-                } else {
-                    header("Location: ../pageReview/pagePreview.php"); // Default fallback
-                }
+                header("Location: ../pageReview/pagePreview.php"); // Default user
             }
+            
             exit();
         } else {
             $error = "Invalid email or password!";
