@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Generate a random salt
     $salt = bin2hex(random_bytes(16));
 
-    // Combine password and salt, then hash the result
+    // Combine password and salt, then hash
     $hashedPassword = hash('sha256', $password . $salt);
 
     // Prepare the SQL query to insert user data
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($stmt->execute()) {
         echo "Registration successful!";
     } else {
-        if ($conn->errno == 1062) { // Duplicate email error
+        if ($conn->errno == 1062) { // jika ada email yang sama (email itu unique)
             echo "Error: This email address is already registered.";
         } else {
             echo "Error: " . $stmt->error;

@@ -1,16 +1,19 @@
 document
   .getElementById("registerForm")
   .addEventListener("submit", function (e) {
+    //Menghentikan redirect/refresh ketika click button
     e.preventDefault();
 
+    //variable untuk cek email jika valid atau tidak (harus memiliki @abc dan .abc)
     const emailInput = document.getElementById("email").value;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    console.log("Email entered:", emailInput);
-    console.log("Form submission intercepted!");
-
+    
+    // response message
     document.getElementById("responseMessage").innerHTML = "";  
 
+    //cek jika email valid
     if (!emailRegex.test(emailInput)) {
+        // jika tidak maka munculkan alert
         document.getElementById("responseMessage").innerHTML =
           '<div class="alert alert-danger">Please enter a valid email address.</div>';
         return;
@@ -18,6 +21,8 @@ document
 
     const formData = new FormData(this);
 
+
+    //fetch adduser.php untuk melakukan query registerUser
     fetch("addUser.php", {
       method: "POST",
       body: formData,

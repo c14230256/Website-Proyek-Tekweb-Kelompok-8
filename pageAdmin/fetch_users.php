@@ -1,6 +1,7 @@
 <?php
 require '../db_config/connection.php';
 
+//fetch semua user
 $sql = "SELECT id_user, name_user AS name, user_email AS email, role FROM user";
 $result = $conn->query($sql);
 

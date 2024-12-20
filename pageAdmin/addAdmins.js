@@ -1,14 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
     loadAdmins();
 
-    // Function to load the list of admins from the server
+    // Function untuk fetch user yang non admin
     function loadAdmins() {
         fetch('fetch_make_admins.php')
             .then(response => response.text())
             .then(data => document.getElementById('make_adminTableBody').innerHTML = data);
     }
 
-    // Event listener to handle clicks on delete buttons
+    // Event listener untuk clicks pada button
     document.addEventListener('click', (event) => {
         if (event.target.classList.contains('make-admin')) {
             const userId = event.target.dataset.id;

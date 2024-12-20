@@ -1,6 +1,7 @@
 <?php
 require '../db_config/connection.php';
 
+//query untuk fetch semua user non admin
 $sql = "SELECT id_user, name_user AS name, user_email AS email, role FROM user WHERE role != 1";
 $result = $conn->query($sql);
 

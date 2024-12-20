@@ -5,6 +5,8 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+
+//mengubah admin menjadi user biasa
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_id = $_POST['admin_id'];
     
