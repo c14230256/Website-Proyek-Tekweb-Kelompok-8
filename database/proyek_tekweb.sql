@@ -192,7 +192,11 @@ INSERT INTO `transaction` (`reservation_id`, `cost`, `transaction_status`, `paym
 (3, 550, 0, '2024-12-03 14:30:00'),
 (4, 999, 1, '2024-12-04 14:30:00');
 
-ALTER TABLE reservation MODIFY COLUMN reservation_status ENUM('denied', 'pending', 'accepted') NOT NULL DEFAULT 'pending';
+ALTER TABLE reservation MODIFY COLUMN reservation_status ENUM('denied', 'pending', 'accepted', 'checked_in', 'checked_out') NOT NULL DEFAULT 'pending';
+
+ALTER TABLE transaction MODIFY COLUMN transaction_status ENUM('unpaid', 'paid') NOT NULL DEFAULT 'unpaid';
+
+ALTER TABLE reservation ADD total_price DECIMAL(10, 2) AFTER reservation_status;
 
 COMMIT;
 
