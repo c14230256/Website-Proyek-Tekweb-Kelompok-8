@@ -49,6 +49,12 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] !== true || $_SESSION
             <div class="col-md-4">
                 <a href="manageAdmins.html" class="btn btn-primary w-100 mb-3">Manage Admins</a>
             </div>
+            <div class="col-md-4">
+                <a href="Check_in_&_out.php" class="btn btn-primary w-100 mb-3">Manage Check in & Check Out</a>
+            </div>
+            <div class="col-md-4">
+                <a href="manage_reservation.php" class="btn btn-primary w-100 mb-3">Manage Reservation</a>
+            </div>
         </div>
     </div>
 </body>
