@@ -12,8 +12,41 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== '1') {
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['reservation_id']) && isset($_POST['status'])) {
     $reservation_id = $_POST['reservation_id'];
     $status = $_POST['status'];
-    $sql = "UPDATE reservation SET reservation_status = '$status' WHERE reservation_id = '$reservation_id'";
-    mysqli_query($conn, $sql);
+
+    // Fetch reservation and room data
+    $sql = "SELECT reservation.*, room.price FROM reservation
+            JOIN room ON reservation.room_id = room.room_id
+            WHERE reservation.reservation_id = '$reservation_id'";
+    $result = mysqli_query($conn, $sql);
+    $reservation = mysqli_fetch_assoc($result);
+
+    if ($status == 'checked_in') {
+        // Calculate total price
+        $check_in = new DateTime($reservation['check_in']);
+        $check_out = new DateTime($reservation['check_out']);
+        $interval = $check_in->diff($check_out);
+        $days = $interval->days;
+
+        $total_price = $days * $reservation['price'];
+
+        // Update reservation status and total price
+        $sql = "UPDATE reservation SET reservation_status = '$status', total_price = '$total_price' WHERE reservation_id = '$reservation_id'";
+        mysqli_query($conn, $sql);
+
+        // Insert transaction without payment_date
+        $insert_sql = "INSERT INTO transaction (reservation_id, cost, transaction_status)
+                       VALUES ('$reservation_id', '$total_price', 'unpaid')";
+        mysqli_query($conn, $insert_sql);
+    } elseif ($status == 'checked_out') {
+        // Update reservation status
+        $sql = "UPDATE reservation SET reservation_status = '$status' WHERE reservation_id = '$reservation_id'";
+        mysqli_query($conn, $sql);
+
+        // Update transaction status and payment date
+        $payment_date = $reservation['check_out'];
+        $update_sql = "UPDATE transaction SET transaction_status = 'paid', payment_date = '$payment_date' WHERE reservation_id = '$reservation_id'";
+        mysqli_query($conn, $update_sql);
+    }
 }
 
 // Fetch all reservations
@@ -24,11 +57,6 @@ $sql = "SELECT reservation.*, user.user_email, room.room_type FROM reservation
         ORDER BY reservation_date DESC";
 $result = mysqli_query($conn, $sql);
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +76,7 @@ $result = mysqli_query($conn, $sql);
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav align-items-center">
                 <li class="nav-item">
-                    <a class="nav-link active" href="manage_checkins.php">Manage Check-Ins and Check-Outs</a>
+                    <a class="nav-link active" href="pageAdmin.php">page Admin</a>
                 </li>
             </ul>
         </div>
@@ -95,3 +123,4 @@ $result = mysqli_query($conn, $sql);
     </div>
 </body>
 </html>
+

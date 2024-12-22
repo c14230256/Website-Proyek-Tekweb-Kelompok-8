@@ -198,5 +198,7 @@ ALTER TABLE transaction MODIFY COLUMN transaction_status ENUM('unpaid', 'paid') 
 
 ALTER TABLE reservation ADD total_price DECIMAL(10, 2) AFTER reservation_status;
 
+ALTER TABLE transaction MODIFY COLUMN payment_date DATETIME NULL;
+
 COMMIT;
 

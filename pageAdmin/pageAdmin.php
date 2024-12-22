@@ -55,6 +55,9 @@ if (!isset($_SESSION['loggedIn']) || $_SESSION['loggedIn'] !== true || $_SESSION
             <div class="col-md-4">
                 <a href="manage_reservation.php" class="btn btn-primary w-100 mb-3">Manage Reservation</a>
             </div>
+            <div class="col-md-4">
+                <a href="viewTransaction.php" class="btn btn-primary w-100 mb-3">Manage Transaction</a>
+            </div>
         </div>
     </div>
 </body>
