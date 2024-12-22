@@ -16,30 +16,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $room_id = $_POST['room_id'];
     $check_in = $_POST['check_in'];
     $check_out = $_POST['check_out'];
-    
-    // Check if the user already exists in the user table based on email
-    $sql = "SELECT id_user FROM user WHERE id_user = '$userId'";
-    $user_check = mysqli_query($conn, $sql);
 
-    if (mysqli_num_rows($user_check) > 0) {
-        // User exists, fetch the user_id
-        $user = mysqli_fetch_assoc($user_check);
-        $user_id = $user['id_user'];
-    } 
-    // Now proceed with the reservation insertion
-    if (isset($user_id)) {
-        $query = "INSERT INTO reservation (user_id, room_id, check_in, check_out, reservation_status, reservation_date)
-                  VALUES ('$user_id', '$room_id', '$check_in', '$check_out', 'Pending', NOW())";
+    // Fetch the price of the selected room
+    $room_query = "SELECT price FROM room WHERE room_id = '$room_id'";
+    $room_result = mysqli_query($conn, $room_query);
+
+    if ($room_result && mysqli_num_rows($room_result) > 0) {
+        $room = mysqli_fetch_assoc($room_result);
+        $room_price = $room['price'];
+
+        // Calculate the total price based on the difference between check-in and check-out dates
+        $check_in_date = new DateTime($check_in);
+        $check_out_date = new DateTime($check_out);
+        $interval = $check_in_date->diff($check_out_date);
+        $days = $interval->days;
+        $total_price = $days * $room_price;
+
+        // Insert the reservation into the database
+        $query = "INSERT INTO reservation (user_id, room_id, check_in, check_out, reservation_status, reservation_date, total_price)
+                  VALUES ('$userId', '$room_id', '$check_in', '$check_out', 'Pending', NOW(), '$total_price')";
 
         if (mysqli_query($conn, $query)) {
             // Success: Redirect to avoid resubmission
-            header("Location: bookingRoom.php?message=Reservation+made+successfully");
+            header("Location: bookingRoom.php?message=Reservation+made+successfully&total_price=$total_price");
             exit;
         } else {
             $message = "Error: " . mysqli_error($conn);
         }
     } else {
-        $message = "User not found, please log in again.";
+        $message = "Room not found or unavailable.";
     }
 }
 
@@ -53,6 +58,7 @@ $reservation_sql = "SELECT * FROM reservation WHERE user_id = '$user_id' AND res
 $reservation_result = mysqli_query($conn, $reservation_sql);
 $reservation = mysqli_fetch_assoc($reservation_result);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -137,33 +143,63 @@ $reservation = mysqli_fetch_assoc($reservation_result);
             </div>
         <?php } ?>
 
-        <!-- Reservation Form -->
         <form method="POST" action="bookingRoom.php">
-            <div class="mb-3">
-                <label for="room_id" class="form-label">Room</label>
-                <select name="room_id" id="room_id" class="form-select" required>
-                    <?php while ($room = mysqli_fetch_assoc($result)) { ?>
-                        <option value="<?= $room['room_id']; ?>" <?= isset($reservation) && $reservation['room_id'] == $room['room_id'] ? 'selected' : ''; ?>>
-                            <?= $room['room_type']; ?> - $<?= $room['price']; ?>/night
-                        </option>
-                    <?php } ?>
-                </select>
-            </div>
+    <div class="mb-3">
+        <label for="room_id" class="form-label">Room</label>
+        <select name="room_id" id="room_id" class="form-select" required>
+            <option value="" selected disabled>Select a Room</option>
+            <?php while ($room = mysqli_fetch_assoc($result)) { ?>
+                <option value="<?= $room['room_id']; ?>" data-price="<?= $room['price']; ?>">
+                    <?= $room['room_type']; ?> - $<?= $room['price']; ?>/night
+                </option>
+            <?php } ?>
+        </select>
+    </div>
 
-            <div class="mb-3">
-                <label for="check_in" class="form-label">Check-in</label>
-                <input type="date" name="check_in" id="check_in" class="form-control" required value="<?= isset($reservation) ? $reservation['check_in'] : ''; ?>">
-            </div>
+    <div class="mb-3">
+        <label for="check_in" class="form-label">Check-in</label>
+        <input type="date" name="check_in" id="check_in" class="form-control" required>
+    </div>
 
-            <div class="mb-3">
-                <label for="check_out" class="form-label">Check-out</label>
-                <input type="date" name="check_out" id="check_out" class="form-control" required value="<?= isset($reservation) ? $reservation['check_out'] : ''; ?>">
-            </div>
+    <div class="mb-3">
+        <label for="check_out" class="form-label">Check-out</label>
+        <input type="date" name="check_out" id="check_out" class="form-control" required>
+    </div>
 
-            <button type="submit" class="btn btn-primary">Book Room</button>
-        </form>
+    <button type="submit" class="btn btn-primary">Book Room</button>
+</form>
+
+<!-- Total Price Display -->
+<div id="totalPriceContainer" class="mt-3" style="display: none;"></div>
+
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        function calculateTotalPrice() {
+            const roomPrice = parseFloat($('#room_id option:selected').data('price')); // Get selected room price
+            const checkInDate = new Date($('#check_in').val()); // Get check-in date
+            const checkOutDate = new Date($('#check_out').val()); // Get check-out date
+
+            if (!isNaN(roomPrice) && checkInDate && checkOutDate && checkOutDate > checkInDate) {
+                const days = (checkOutDate - checkInDate) / (1000 * 60 * 60 * 24); // Calculate the number of days
+                const totalPrice = days * roomPrice;
+
+                $('#totalPriceContainer').html(`Total Price: $${totalPrice.toFixed(2)}`).show();
+            } else {
+                $('#totalPriceContainer').hide();
+            }
+        }
+
+        // Trigger the calculation when any of the inputs change
+        $('#room_id, #check_in, #check_out').on('change', calculateTotalPrice);
+
+        // Initially hide the total price container
+        $('#totalPriceContainer').hide();
+    });
+</script>
+
 
 </body>
 </html>
